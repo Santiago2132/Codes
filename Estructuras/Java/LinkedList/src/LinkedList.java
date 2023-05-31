@@ -1,15 +1,23 @@
 import java.util.Iterator;
 
 /**
- * @author Santiago Maldonado Rojas
- * Estructura de datos: Lista Doblemente Enlazada
+ * @author Santiago Maldonado Rojasn
  */
 public class LinkedList implements List {
     Node head;
     Node tail;
     @Override
     public boolean add(Object object) {
-        return false;
+        Node newNode = new Node(object);
+        if(isEmpty()){
+            head = newNode;
+            tail = newNode;
+            return true;
+        }else {
+            tail.setNext(newNode);
+            tail = newNode;
+            return true;
+        }
     }
 
     @Override
@@ -79,7 +87,7 @@ public class LinkedList implements List {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return head == null;
     }
 
     @Override
@@ -190,7 +198,7 @@ class Node <T> implements NodeI{
     private Node next;
 
     //Constructores
-    public Node() {
+    public Node(T object) {
         this.Object = null;
         this.next = null;
         this.prev = null;
