@@ -7,10 +7,11 @@ public class Main {
         LinkedList list = new LinkedList();
         list.add(22);
         list.add(33);
-        Object[] objects = {1,2,3,4,5};
-        list.add(list.getHead(),objects);
-        System.out.println(list.getHead().getObject() + " " + list.getTail().getPrev().getObject());
+        Object[] objects = {1,2,3,4,5,6,7,8,9,10, "Santiago"};
         list.addFirst(17);
-        System.out.println(list.getHead().getObject() + " " + list.getTail().getPrev().getObject());
+        list.addLast(objects);
+        list.print();
+        list.clear();
+        list.print();
     }
 }

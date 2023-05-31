@@ -13,31 +13,47 @@ public class LinkedList implements List {
     //Metodos
     @Override
     public boolean add(Object object) {
+        try{
 
-        Node newNode = new Node(object);
-        if(isEmpty()){
-            head = newNode;
-            tail = newNode;
-            return true;
-        }else {
-            tail.setNext(newNode);
-            newNode.setPrev(tail);
-            tail = newNode;
-            return true;
+            if(object != null){
+                Node newNode = new Node(object);
+                if(isEmpty()){
+                    head = newNode;
+                    tail = newNode;
+                    return true;
+                }else {
+                    tail.setNext(newNode);
+                    newNode.setPrev(tail);
+                    tail = newNode;
+                    return true;
+                }
+            }else {
+                return false;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+            return false;
         }
 
     }
 
     @Override
     public boolean add(NodeI nodeI, Object object) {
+        try {
 
-        if(object != null){
-            Node newNode = new Node<>(object);
-            Node node = (Node) nodeI;
-            node.setNext(newNode);
-            newNode.setPrev(node);
-            return true;
-        }else {
+            if(object != null){
+                Node newNode = new Node<>(object);
+                Node node = (Node) nodeI;
+                node.setNext(newNode);
+                newNode.setPrev(node);
+                return true;
+            }else {
+                return false;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
             return false;
         }
 
@@ -69,6 +85,7 @@ public class LinkedList implements List {
 
     @Override
     public boolean add(Object[] objects) {
+
         try{
 
             if(objects != null) {
@@ -84,43 +101,60 @@ public class LinkedList implements List {
             System.out.println(" Error: \n" + ValueError);
             return false;
         }
+
     }
 
     @Override
     public boolean add(NodeI nodeI, Object[] objects) {
-        if (objects != null) {
-            Node node = (Node) nodeI;
-            Node aux = node.getNext();
 
-            for (int i = 0; i < objects.length; i++) {
-                Node newNode = new Node<>(objects[i]);
-                newNode.setPrev(node);
-                node.setNext(newNode);
-                node = newNode;
+        try{
+            if (objects != null) {
+                Node node = (Node) nodeI;
+                Node aux = node.getNext();
+
+                for (int i = 0; i < objects.length; i++) {
+                    if(objects[i] != null){
+                        Node newNode = new Node<>(objects[i]);
+                        newNode.setPrev(node);
+                        node.setNext(newNode);
+                        node = newNode;
+                    }
+                }
+
+                if (aux != null) {
+                    aux.setPrev(node);
+                    node.setNext(aux);
+                }
+                return true;
+
+            } else {
+                return false;
             }
-
-            if (aux != null) {
-                aux.setPrev(node);
-                node.setNext(aux);
-            }
-
-            return true;
-        } else {
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
             return false;
         }
+
     }
 
 
     @Override
     public boolean addFirst(Object object) {
 
-        if(object != null){
-            Node newFirts = new Node<>(object);
-            head.setPrev(newFirts);
-            newFirts.setNext(head);
-            head = newFirts;
-            return true;
-        }else {
+        try{
+
+            if(object != null){
+                Node newFirts = new Node<>(object);
+                head.setPrev(newFirts);
+                newFirts.setNext(head);
+                head = newFirts;
+                return true;
+            }else {
+                return false;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
             return false;
         }
 
@@ -128,22 +162,86 @@ public class LinkedList implements List {
 
     @Override
     public boolean addFirst(Object[] objects) {
-        return false;
+
+        try{
+            if(objects != null){
+                int aux = objects.length - 1;
+                for(int i = 0; i < objects.length; i++){
+                    if(objects[aux] != null){
+                        addFirst(objects[aux--]);
+                    }
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+            return false;
+        }
+
     }
 
     @Override
     public boolean addLast(Object object) {
+        try{
+
+            if(tail != null){
+                if (object != null){
+                    Node newNode = new Node<>(object);
+                    tail.setNext(newNode);
+                    newNode.setPrev(tail);
+                    tail = newNode;
+                }else {
+                    return false;
+                }
+            }else {
+                    add(object);
+            }
+        }catch (Exception ValueError){
+            System.out.println("Error: " +  ValueError);
+            return false;
+        }
         return false;
     }
 
     @Override
-    public boolean addLast(Object[] objects) {
-        return false;
-    }
+        public boolean addLast(Object[] objects) {
+            try {
+
+                if(objects != null){
+                    for (int i = 0; i < objects.length; i++){
+                        if (objects != null){
+                            addLast(objects[i]);
+                        }
+                    }
+                }else {
+                    return false;
+                }
+
+            }catch (Exception ValueError){
+                System.out.println("Error: " + ValueError);
+                return false;
+            }
+            return false;
+        }
 
     @Override
     public boolean clear() {
-        return false;
+        try{
+            if(!isEmpty()){
+                head = null;
+                tail = null;
+                return true;
+            }else {
+                return true;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+            return false;
+        }
     }
 
     @Override
@@ -263,6 +361,29 @@ public class LinkedList implements List {
 
     @Override
     public void print() {
+
+        try {
+            Node node = head;
+            if(node != null){
+                while (node != null){
+                    if(node == head){
+                        System.out.print("[Head]: " + node.getObject());
+                        node = node.getNext();
+                    } else if (node == tail) {
+                        System.out.print(" <-> " + node.getObject() + " :[Tail]");
+                        node = null;
+                    } else{
+                        System.out.print(" <-> " + node.getObject());
+                        node = node.getNext();
+                    }
+                }
+            }else {
+                System.out.println("\n Esta vacía");
+            }
+
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+        }
 
     }
     @Override
