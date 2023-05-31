@@ -4,10 +4,16 @@ import java.util.Iterator;
  * @author Santiago Maldonado Rojasn
  */
 public class LinkedList implements List {
-    Node head;
-    Node tail;
+    private Node head;
+    private Node tail;
+    //Constructores
+    public LinkedList() {
+    }
+
+    //Metodos
     @Override
     public boolean add(Object object) {
+
         Node newNode = new Node(object);
         if(isEmpty()){
             head = newNode;
@@ -15,34 +21,109 @@ public class LinkedList implements List {
             return true;
         }else {
             tail.setNext(newNode);
+            newNode.setPrev(tail);
             tail = newNode;
             return true;
         }
+
     }
 
     @Override
     public boolean add(NodeI nodeI, Object object) {
-        return false;
+
+        if(object != null){
+            Node newNode = new Node<>(object);
+            Node node = (Node) nodeI;
+            node.setNext(newNode);
+            newNode.setPrev(node);
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     @Override
     public boolean add(NodeI nodeI, NodeI next) {
-        return false;
+        try{
+            Node node = (Node) nodeI;
+            Node nextNode = (Node) next;
+
+            if(node.getNext() != null){
+                Node aux = node.getNext();
+                node.setNext(nextNode);
+                nextNode.setNext(aux);
+                nextNode.setPrev(node);
+                aux.setPrev(nextNode);
+                return true;
+            }else {
+                node.setNext(nextNode);
+                return true;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println(" Error: \n" + ValueError);
+            return false;
+        }
     }
 
     @Override
     public boolean add(Object[] objects) {
-        return false;
+        try{
+
+            if(objects != null) {
+                for (int i = 0; i < objects.length; i++) {
+                    add(objects[i]);
+                }
+                return true;
+            }else {
+                return false;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println(" Error: \n" + ValueError);
+            return false;
+        }
     }
 
     @Override
     public boolean add(NodeI nodeI, Object[] objects) {
-        return false;
+        if (objects != null) {
+            Node node = (Node) nodeI;
+            Node aux = node.getNext();
+
+            for (int i = 0; i < objects.length; i++) {
+                Node newNode = new Node<>(objects[i]);
+                newNode.setPrev(node);
+                node.setNext(newNode);
+                node = newNode;
+            }
+
+            if (aux != null) {
+                aux.setPrev(node);
+                node.setNext(aux);
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
     @Override
     public boolean addFirst(Object object) {
-        return false;
+
+        if(object != null){
+            Node newFirts = new Node<>(object);
+            head.setPrev(newFirts);
+            newFirts.setNext(head);
+            head = newFirts;
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     @Override
@@ -184,14 +265,36 @@ public class LinkedList implements List {
     public void print() {
 
     }
-
     @Override
     public Iterator<NodeI> iterator() {
         return null;
     }
+
+    //Getters and setters
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
+    public Node getTail() {
+        return tail;
+    }
+
+    public void setTail(Node tail) {
+        this.tail = tail;
+    }
+
     public static void main(String [] args){
     }
 }
+
+
+/*
+   * Sub clase Nodo
+ */
 class Node <T> implements NodeI{
     private T Object;
     private Node prev;
@@ -199,15 +302,15 @@ class Node <T> implements NodeI{
 
     //Constructores
     public Node(T object) {
-        this.Object = null;
+        this.Object = object;
         this.next = null;
         this.prev = null;
     }
 
     public Node(T objeto, Node next) {
         this.Object = objeto;
-        this.prev = null;
         this.next = next;
+        this.prev = null;
     }
     public Node(T objeto, Node prev, Node next) {
         this.Object = objeto;
@@ -215,7 +318,7 @@ class Node <T> implements NodeI{
         this.next = next;
     }
 
-    //Metodo
+    //Metodos
     @Override
     public boolean isEquals(Object object) {
         if(Object.equals(object)){
@@ -224,7 +327,6 @@ class Node <T> implements NodeI{
             return false;
         }
     }
-
     //Getters and Setters
     @Override
     public boolean setObject(Object object) {
