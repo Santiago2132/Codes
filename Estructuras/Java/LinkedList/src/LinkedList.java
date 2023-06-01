@@ -3,7 +3,7 @@ import java.util.Iterator;
 /**
  * @author Santiago Maldonado Rojasn
  */
-public class LinkedList implements List {
+public class LinkedList implements List,Cloneable {
     private Node head;
     private Node tail;
     //Constructores
@@ -246,22 +246,72 @@ public class LinkedList implements List {
 
     @Override
     public List clone() {
-        return null;
+        try{
+            return (LinkedList) super.clone();
+        }catch (Exception ValueError){
+            System.out.print("Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public boolean contains(Object object) {
-        return false;
+        try{
+            if(head != null){
+                Node node = head;
+                while(node != null){
+                    if(node.getObject().equals(object)){
+                        return true;
+                    }else {
+                        node = node.getNext();
+                    }
+                }
+                return false;
+            }else {
+                return false;
+            }
+
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+            return false;
+        }
     }
 
     @Override
     public boolean contains(Object[] objects) {
+        try{
+            for (Object obj : objects) {
+                if (obj != null && !contains(obj)) {
+                    return false;
+                }
+            }
+            return true;
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+        }
         return false;
     }
 
     @Override
     public NodeI nodeOf(Object object) {
-        return null;
+        try{
+            if(head != null){
+                Node node = head;
+                while(node != null){
+                    if(node.getObject().equals(object)){
+                        return node;
+                    }else {
+                        node = node.getNext();
+                    }
+                }
+                return null;
+            }else {
+                return null;
+            }
+        }catch (Exception ValueError){
+            System.out.println("Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
@@ -271,52 +321,162 @@ public class LinkedList implements List {
 
     @Override
     public Object get() {
-        return null;
+        try{
+            return tail.getObject();
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object get(NodeI nodeI) {
-        return null;
+        try{
+            Node node = head;
+            Node nodeAux = (Node) nodeI;
+            while (node != null) {
+                if (node == nodeAux) {
+                    return node.getObject();
+                }
+                node = node.getNext();
+            }
+            return null;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object getPrevious(NodeI nodeI) {
-        return null;
+        try {
+            Node nodo = head;
+            Node nodeAux = (Node) nodeI;
+            while (nodo != null){
+                if(nodo == nodeAux){
+                    return nodo.getPrev().getObject();
+                }
+                nodo = nodo.getNext();
+            }
+            return null;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object getNext(NodeI nodeI) {
-        return null;
+        try{
+            Node node = head;
+            Node nodeAux = (Node) nodeI;
+            while (node != null){
+                if(node == nodeAux){
+                    return node.getNext().getObject();
+                }
+                node = node.getNext();
+            }
+            return null;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object getFirst() {
-        return null;
+        try{
+            return getHead().getObject();
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object[] getFirst(int n) {
-        return new Object[0];
+        try{
+            Node nodo = head;
+            Object[] objects = new Object[n];
+            for (int i = 0; i < n; i++) {
+                if (nodo.getObject() != null) {
+                    objects[i] = nodo.getObject();
+                }
+                nodo = nodo.getNext();
+            }
+            return objects;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object getLast() {
-        return null;
+        return tail.getObject();
     }
 
     @Override
     public Object[] getLast(int n) {
-        return new Object[0];
+        try{
+            Object[] objects = new Object[n];
+            Node node = tail;
+            for(int i = 0; i < n; i++){
+                if (node.getObject() != null ){
+                    objects[i] = node.getObject();
+                }
+                node = node.getPrev();
+            }
+            return objects;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public Object pop() {
-        return null;
+        try{
+            Object object = tail.getObject();
+            tail = tail.getPrev();
+            return object;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public boolean remove(Object object) {
-        return false;
+        try{
+            Node nodo = head;
+            while (nodo != null) {
+                if (nodo.getObject().equals(object)) {
+                    if(nodo == head){
+                        Node nodeNext = nodo.getNext();
+                        nodeNext.setPrev(null);
+                        head = nodeNext;
+                        return true;
+                    }else if (nodo == tail){
+                        Node nodePrev = nodo.getPrev();
+                        nodePrev.setNext(null);
+                        tail = nodePrev;
+                        return true;
+                    }else {
+                        Node nodePrev = nodo.getPrev();
+                        Node nodeNext = nodo.getNext();
+                        nodePrev.setNext(nodeNext);
+                        nodeNext.setPrev(nodePrev);
+                        return true;
+                    }
+                }
+                nodo = nodo.getNext();
+            }
+            return false;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return false;
+        }
     }
 
     @Override
