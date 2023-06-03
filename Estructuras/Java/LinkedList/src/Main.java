@@ -7,16 +7,20 @@ public class Main {
         LinkedList list = new LinkedList();
         list.add(22);
         list.add(33);
-        Object[] objects = {1,2,3,4,5,6,7,8,9,10,"Santiago"};
-        Object[] objects2 = {"Santiago",1,2,3,4,5,6,7,8,9,10};
-        list.addFirst(17);
-        list.addLast(objects);
+        Object[] objects = {1,2,3,4,5,'a','b',6,7,8,9,true,false,10,"Santiago"};
+        list.add(objects);
+        list.addLast(2);
         list.print();
-
-
-        LinkedList listaClonada = (LinkedList) list.clone();
-
-        System.out.print("\n " +list.remove(17)+ list.getFirst()+"\n");
+        System.out.println("\n");
+        Object[] objects1 = list.toArray();
+        for(int i = 0; i < objects1.length; i++){
+            System.out.print(objects1[i] +" <-> ");
+        }
+        System.out.println("\n");
+        list.set(list.getTail(),"Antonio");
+        list.print();
+        list.orderBy('a');
+        System.out.println("\n");
         list.print();
     }
 }

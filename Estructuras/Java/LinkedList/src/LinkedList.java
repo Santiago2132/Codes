@@ -6,6 +6,7 @@ import java.util.Iterator;
 public class LinkedList implements List,Cloneable {
     private Node head;
     private Node tail;
+    int size = 0;
     //Constructores
     public LinkedList() {
     }
@@ -20,11 +21,13 @@ public class LinkedList implements List,Cloneable {
                 if(isEmpty()){
                     head = newNode;
                     tail = newNode;
+                    size++;
                     return true;
                 }else {
                     tail.setNext(newNode);
                     newNode.setPrev(tail);
                     tail = newNode;
+                    size++;
                     return true;
                 }
             }else {
@@ -47,6 +50,7 @@ public class LinkedList implements List,Cloneable {
                 Node node = (Node) nodeI;
                 node.setNext(newNode);
                 newNode.setPrev(node);
+                size++;
                 return true;
             }else {
                 return false;
@@ -71,9 +75,11 @@ public class LinkedList implements List,Cloneable {
                 nextNode.setNext(aux);
                 nextNode.setPrev(node);
                 aux.setPrev(nextNode);
+                size++;
                 return true;
             }else {
                 node.setNext(nextNode);
+                size++;
                 return true;
             }
 
@@ -118,6 +124,7 @@ public class LinkedList implements List,Cloneable {
                         newNode.setPrev(node);
                         node.setNext(newNode);
                         node = newNode;
+                        size++;
                     }
                 }
 
@@ -148,6 +155,7 @@ public class LinkedList implements List,Cloneable {
                 head.setPrev(newFirts);
                 newFirts.setNext(head);
                 head = newFirts;
+                size++;
                 return true;
             }else {
                 return false;
@@ -193,17 +201,24 @@ public class LinkedList implements List,Cloneable {
                     tail.setNext(newNode);
                     newNode.setPrev(tail);
                     tail = newNode;
+                    size++;
+                    return true;
                 }else {
                     return false;
                 }
             }else {
+                if(object != null){
                     add(object);
+                    size++;
+                    return true;
+                }else {
+                    return false;
+                }
             }
         }catch (Exception ValueError){
             System.out.println("Error: " +  ValueError);
             return false;
         }
-        return false;
     }
 
     @Override
@@ -216,6 +231,7 @@ public class LinkedList implements List,Cloneable {
                             addLast(objects[i]);
                         }
                     }
+                    return true;
                 }else {
                     return false;
                 }
@@ -224,7 +240,6 @@ public class LinkedList implements List,Cloneable {
                 System.out.println("Error: " + ValueError);
                 return false;
             }
-            return false;
         }
 
     @Override
@@ -437,9 +452,19 @@ public class LinkedList implements List,Cloneable {
     @Override
     public Object pop() {
         try{
-            Object object = tail.getObject();
-            tail = tail.getPrev();
-            return object;
+            if(tail != null){
+                if(head == tail){
+                    Object object = tail.getObject();
+                    tail = head = null;
+                    return object;
+                }else {
+                    Object object = tail.getObject();
+                    tail = tail.getPrev();
+                    return object;
+                }
+            }else {
+                return null;
+            }
         }catch (Exception ValueError){
             System.out.println(" Error: " + ValueError);
             return null;
@@ -449,28 +474,27 @@ public class LinkedList implements List,Cloneable {
     @Override
     public boolean remove(Object object) {
         try{
-            Node nodo = head;
-            while (nodo != null) {
-                if (nodo.getObject().equals(object)) {
-                    if(nodo == head){
-                        Node nodeNext = nodo.getNext();
-                        nodeNext.setPrev(null);
-                        head = nodeNext;
-                        return true;
-                    }else if (nodo == tail){
-                        Node nodePrev = nodo.getPrev();
-                        nodePrev.setNext(null);
-                        tail = nodePrev;
-                        return true;
+            Node node = head;
+            while (node != null) {
+                if (node.getObject().equals(object)) {
+                    if(node == head && node == tail){
+                        head = null;
+                        tail = null;
+                    }else if(node == head){
+                        head = node.getNext();
+                        head.setPrev(null);
+                    }else if (node == tail){
+                        tail = node.getPrev();
+                        tail.setNext(null);
                     }else {
-                        Node nodePrev = nodo.getPrev();
-                        Node nodeNext = nodo.getNext();
-                        nodePrev.setNext(nodeNext);
-                        nodeNext.setPrev(nodePrev);
-                        return true;
+                        Node prev = node.getPrev();
+                        Node next = node.getNext();
+                        prev.setNext(next);
+                        next.setPrev(prev);
                     }
+                    return true;
                 }
-                nodo = nodo.getNext();
+                node = node.getNext();
             }
             return false;
         }catch (Exception ValueError){
@@ -481,42 +505,209 @@ public class LinkedList implements List,Cloneable {
 
     @Override
     public boolean remove(NodeI nodeI) {
+        if (!(nodeI instanceof Node)) {//Verifica que sea un nodo valido  de la lista
+            return false;
+        }
+        Node nodeToRemove = (Node) nodeI;
+        Node node = head;
+        while (node != null) {
+            if (node.equals(nodeToRemove)) {
+                if (node == head && node == tail) {
+                    head = null;
+                    tail = null;
+                } else if (node == head) {
+                    head = node.getNext();
+                    head.setPrev(null);
+                } else if (node == tail) {
+                    tail = node.getPrev();
+                    tail.setNext(null);
+                } else {
+                    Node prev = node.getPrev();
+                    Node next = node.getNext();
+                    prev.setNext(next);
+                    next.setPrev(prev);
+                }
+                return true;
+            }
+            node = node.getNext();
+        }
         return false;
     }
 
+
+
     @Override
     public boolean removeAll(Object[] objects) {
-        return false;
+        try{
+            int removeObjects = 0;
+            for (int i = 0; i < objects.length; i++){
+                if(remove(objects[i])){
+                    removeObjects++;
+                }
+            }
+            if(removeObjects == objects.length){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return false;
+        }
     }
 
     @Override
     public boolean retainAll(Object[] objects) {
-        return false;
+        try{
+            boolean modified = false;
+            Node node = head;
+            Node nodePreve = null;
+            while (node != null) {
+                boolean found = false;
+                for (Object obj : objects) {
+                    if (obj.equals(node.getObject())) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    if (nodePreve == null) {
+                        head = node.getNext();
+                    } else {
+                        nodePreve.setNext(node.getNext());
+                    }
+                    modified = true;
+                } else {
+                    nodePreve = node;
+                }
+                node = node.getNext();
+            }
+            return modified;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return false;
+        }
     }
 
     @Override
     public boolean set(NodeI nodeI, Object object) {
-        return false;
+        try{
+            if (!(nodeI instanceof Node)) {//Verifica que sea un nodo valido  de la lista
+                return false;
+            }
+            Node node = head;
+            Node nodeSet = (Node) nodeI;
+            while (node != null) {
+                if (node.equals(nodeSet)) {
+                    node.setObject(object);
+                    return true;
+                }
+                node = node.getNext();
+            }
+            return false;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " +  ValueError);
+            return false;
+        }
     }
 
     @Override
     public int size() {
+        try {
+            return size;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+        }
         return 0;
     }
 
     @Override
     public List subList(NodeI from, NodeI to) {
+        try{
+            Node head = (Node)from;
+            Node tail = (Node) to;
+            Node node = this.head;
+            while (node != null){
+                if (node.equals(head)){
+                    head = node;
+                    break;
+                }
+                node = node.getNext();
+            }
+
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
         return null;
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        try{
+            Node node = head;
+            Object[] objects = new Object[size()];
+            for (int i = 0; node != null; i++){
+                if(node.getObject() != null){
+                    objects[i] = node.getObject();
+                }
+                node = node.getNext();
+            }
+            return objects;
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return null;
+        }
     }
 
     @Override
     public boolean orderBy(char c) {
-        return false;
+        try{
+            LinkedList integers = new LinkedList();
+            LinkedList characters = new LinkedList();
+            LinkedList strings = new LinkedList();
+            LinkedList booleans = new LinkedList();
+            LinkedList others = new LinkedList();
+
+            Node current = head;
+            while (current != null) {
+                Object obj = current.getObject();
+                if (obj instanceof Integer) {
+                    integers.add(obj);
+                } else if (obj instanceof Character) {
+                    characters.add(obj);
+                } else if (obj instanceof String) {
+                    strings.add(obj);
+                } else if (obj instanceof Boolean) {
+                    booleans.add(obj);
+                } else {
+                    others.add(obj);
+                }
+                current = current.getNext();
+            }
+
+            LinkedList sortedList = new LinkedList();
+            sortedList.addAll(integers);
+            sortedList.addAll(characters);
+            sortedList.addAll(strings);
+            sortedList.addAll(booleans);
+            sortedList.addAll(others);
+
+            head = sortedList.getHead();
+            return true;
+
+        }catch (Exception ValueError){
+            System.out.println(" Error: " + ValueError);
+            return false;
+        }
+    }
+
+    private void addAll(LinkedList otherList) {
+        Node current = otherList.getHead();
+        while (current != null) {
+            add(current.getObject());
+            current = current.getNext();
+        }
     }
 
     @Override
