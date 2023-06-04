@@ -15,5 +15,6 @@ public class Main {
         list.orderBy('a');
         System.out.println("\n");
         list.print();
+        System.out.println(list.size);
     }
 }

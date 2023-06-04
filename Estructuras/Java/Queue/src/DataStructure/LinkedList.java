@@ -700,6 +700,7 @@ public class LinkedList implements List,Cloneable {
             sortedList.addAll(others);
 
             head = sortedList.getHead();
+            tail = sortedList.getTail();
             return true;
 
         }catch (Exception ValueError){
