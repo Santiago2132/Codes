@@ -18,7 +18,5 @@ public class Main {
         queue.print();
         queue.print();
         queue.size();
-
-
     }
 }

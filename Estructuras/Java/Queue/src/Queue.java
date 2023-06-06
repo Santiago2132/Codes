@@ -46,14 +46,17 @@ public class Queue {
         queue = list;
     }
 
+    @Override
+    public String toString() {
+        return "Queue{" +
+                "queue=" + queue +
+                '}';
+    }
+
     public void print(){
         queue.print();
     }
 
-    public String toString(){
-
-        return "a";
-    }
 }
 
 class Stack{
@@ -101,12 +104,15 @@ class Stack{
         this.stack = list;
     }
 
+    @Override
+    public String toString() {
+        return "Stack{" +
+                "stack=" + stack +
+                '}';
+    }
+
     public void print(){
         stack.print();
     }
 
-    public String toString(){
-
-        return "a";
-    }
 }
