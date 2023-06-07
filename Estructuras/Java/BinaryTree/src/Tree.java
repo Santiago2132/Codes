@@ -38,4 +38,5 @@ class Node <T>{
     public void setRight(Node right) {
         this.right = right;
     }
+
 }
