@@ -7,7 +7,9 @@
  * Autor Santiago Maldonado Rojas
  */
 public class Main {
+    //Ejercicio # 1
     public static void esPerfecto1(int numero) {//Version 1.1 funcional
+        long startTime = System.currentTimeMillis();//Inicio de ejecución
         int sumaDivisores = 0;
         for (int i = 1; i <= numero / 2; i++) {
             if (numero % i == 0) {
@@ -20,9 +22,13 @@ public class Main {
         } else {
             System.out.println("No es un número perfecto.");
         }
+        long endTime = System.currentTimeMillis();//Fin  del tiempo de ejecución
+        long elapsedTime = endTime - startTime;
+        System.out.println("Tiempo de ejecución: " + elapsedTime + " milisegundos");
     }
 
     public static void esPerfecto(int numero) {//Version 1.2 Funcional
+        long startTime = System.currentTimeMillis();//Inicio de ejecución
         if (esPrimo(numero)) {
             System.out.println("El número " + numero + " es un número primo, y los primos no son números perfectos.");
         } else {
@@ -38,6 +44,9 @@ public class Main {
                 System.out.println("El número " + numero + " no es un número perfecto.");
             }
         }
+        long endTime = System.currentTimeMillis();//Fin  del tiempo de ejecución
+        long elapsedTime = endTime - startTime;
+        System.out.println("Tiempo de ejecución: " + elapsedTime + " milisegundos");
     }
 
     public static boolean esPrimo(int numero) {
@@ -53,6 +62,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        System.out.println("Test #1: Algoritmo 1.1");
+        esPerfecto1(7);
+        System.out.println("Test #2: Algoritmo 1.2");
+        esPerfecto(7);
     }
 }
