@@ -4,6 +4,16 @@
  * divisores positivos.
  * Por ejemplo, el número 28 es un número perfecto ya que sus divisores son:
  * 1, 2, 4, 7 y 14, y la suma de estos números es 28.
+ *
+ * 2. El propietario de una pequeña empresa quiere conocer el valor a pagar
+ * por la nómina de sus 10 empleados, sabiendo que cada uno tiene un
+ * sueldo base de $855.000. Se sabe que por cada 10 horas extras que
+ * trabaje el empleado al mes obtendrá un 10% más de bonificación al mes,
+ * si el empleado trabaja 20 hora extras al mes obtendrá una bonificación del
+ * 15% y si trabaja 32 horas extras recibirá un 20% de bonificación; se debe
+ * tener en cuenta que las prestaciones sociales de los empleados equivalen
+ * a un 26% de su salario base.
+ *
  * Autor Santiago Maldonado Rojas
  */
 public class Main {
@@ -61,10 +71,38 @@ public class Main {
         return true;
     }
 
+    //Ejercicio #2
+
+    public static void nomina(int[] horas){
+        long startTime = System.currentTimeMillis();//Inicio de ejecución
+        int[] empleados = new int[10];
+        for (int i = 0; i <10; i++){
+            int sueldoBase = 855000;
+            int prestacionSocial = (sueldoBase*26)/100;
+            if(horas[i]== 10){
+                sueldoBase = sueldoBase + ((sueldoBase*10)/100);
+            } else if (horas[i]== 20) {
+                sueldoBase = sueldoBase + ((sueldoBase*15)/100);
+            } else if (horas[i]== 32) {
+                sueldoBase = sueldoBase + ((sueldoBase*20)/100);
+            }
+            sueldoBase = sueldoBase - prestacionSocial;
+            empleados[i]= sueldoBase;
+            //System.out.println(sueldoBase);
+        }
+        long endTime = System.currentTimeMillis();//Fin  del tiempo de ejecución
+        long elapsedTime = endTime - startTime;
+        System.out.println("Tiempo de ejecución: " + elapsedTime + " milisegundos");
+    }
+
     public static void main(String[] args) {
         System.out.println("Test #1: Algoritmo 1.1");
         esPerfecto1(7);
         System.out.println("Test #2: Algoritmo 1.2");
         esPerfecto(7);
+        System.out.println("Test #1: Algoritmo 2.0");
+        int[] horas = {20, 20, 32,10, 10, 20,10,10,10,10 };
+        nomina(horas);
+
     }
 }
