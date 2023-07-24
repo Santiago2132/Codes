@@ -75,20 +75,21 @@ public class Main {
 
     public static void nomina(int[] horas){
         long startTime = System.currentTimeMillis();//Inicio de ejecución
+
+        int prestacionSocial = (855000*26)/100;
         int[] empleados = new int[10];
         for (int i = 0; i <10; i++){
             int sueldoBase = 855000;
-            int prestacionSocial = (sueldoBase*26)/100;
-            if(horas[i]== 10){
+            if((horas[i]== 10)||(horas[i]<20)){
                 sueldoBase = sueldoBase + ((sueldoBase*10)/100);
-            } else if (horas[i]== 20) {
+            } else if ((horas[i]== 20)||(horas[i]<32)){
                 sueldoBase = sueldoBase + ((sueldoBase*15)/100);
-            } else if (horas[i]== 32) {
+            } else if (horas[i]>= 32) {
                 sueldoBase = sueldoBase + ((sueldoBase*20)/100);
             }
             sueldoBase = sueldoBase - prestacionSocial;
             empleados[i]= sueldoBase;
-            //System.out.println(sueldoBase);
+            System.out.println(sueldoBase);
         }
         long endTime = System.currentTimeMillis();//Fin  del tiempo de ejecución
         long elapsedTime = endTime - startTime;
@@ -96,12 +97,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        /*
         System.out.println("Test #1: Algoritmo 1.1");
         esPerfecto1(7);
         System.out.println("Test #2: Algoritmo 1.2");
-        esPerfecto(7);
+        esPerfecto(7);*/
         System.out.println("Test #1: Algoritmo 2.0");
-        int[] horas = {20, 20, 32,10, 10, 20,10,10,10,10 };
+        int[] horas = {20, 20, 32,10, 32, 20,10,10,10,10 };
         nomina(horas);
 
     }
