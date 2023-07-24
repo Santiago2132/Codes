@@ -97,14 +97,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        /*
         System.out.println("Test #1: Algoritmo 1.1");
         esPerfecto1(7);
         System.out.println("Test #2: Algoritmo 1.2");
-        esPerfecto(7);*/
+        esPerfecto(7);
         System.out.println("Test #1: Algoritmo 2.0");
         int[] horas = {20, 20, 32,10, 32, 20,10,10,10,10 };
         nomina(horas);
-
     }
 }
