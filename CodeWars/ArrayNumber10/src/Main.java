@@ -33,5 +33,5 @@ class Kata {
             }else{
                 return null;
             }
-        }
+    }
 }
