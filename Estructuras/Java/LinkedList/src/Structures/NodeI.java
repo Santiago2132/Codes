@@ -1,3 +1,5 @@
+package Structures;
+
 /**
  * @author Lenin Javier Serrano Gil
  * @param <T> generic objects

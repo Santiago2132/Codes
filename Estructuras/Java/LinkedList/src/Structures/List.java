@@ -1,3 +1,5 @@
+package Structures;
+
 import java.util.Iterator;
 
 /**
@@ -80,7 +82,7 @@ public interface List<T> {
 
     /***
      * 11. Retorna una instacia nueva de la lista.
-     * @return List
+     * @return Structures.List
      */
     public List clone();
 
@@ -214,7 +216,7 @@ public interface List<T> {
      * 32. Retorna una sub lista de la lista.
      * @param from nodo
      * @param to nodo
-     * @return List list
+     * @return Structures.List list
      */
     public List subList(NodeI from, NodeI to);
 

@@ -1,3 +1,5 @@
+import Structures.LinkedList;
+
 /**
  * @author Santiago Maldonado Rojas
  * Estructura de datos: Lista Doblemente Enlazada
