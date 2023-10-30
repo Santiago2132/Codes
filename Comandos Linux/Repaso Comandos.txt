@@ -1,0 +1,23 @@
+-Comandos Repaso-
+
+Comandos basicos:
+"ls" -> Lista los archivos y directorios en el directorio actual.
+"cd" -> Cambiar el directorio actual.
+"pwd" -> Muestra la ruta completa del directorio actual.
+"mkdir" -> Crea un nuevo directorio.
+"touch" -> Crea un nuevo archivo vació.
+"rm" -> Elimina archivos o directorio.
+"cp" -> Copia archivos o directorios.
+"mv" -> Mueve o renombra archivos o directorios.
+"cat" -> Muestra el contenido de un archivo.
+"head" -> Muestra las primeras líneas de un archivo.
+"tail" -> Muestra las ultimas líneas de un archivo.
+"grep" -> Busca patrones en archivos.
+"ps" -> Muestra los procesos en ejecución.
+"kill" -> Termina un proceso.
+"man" -> Muestra el manual de un comando.
+"sudo" -> Ejecuta un comando como superusuario.
+"apt" -> Herramienta de gestión de paquetes. (Debian)
+"yum" -> Herramienta de gestión de paquetes. (Red Hat)
+"tar" -> Permite comprimir y descomprimir archivos.
+"ssh" -> Permite conectarse a un servidor remoto.
