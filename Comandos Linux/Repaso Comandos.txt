@@ -6,7 +6,8 @@ Comandos basicos:
 "pwd" -> Muestra la ruta completa del directorio actual.
 "mkdir" -> Crea un nuevo directorio.
 "touch" -> Crea un nuevo archivo vació.
-"rm" -> Elimina archivos o directorio.
+"rm" -> Elimina archivos o directorio00''¿
+7<z
 "cp" -> Copia archivos o directorios.
 "mv" -> Mueve o renombra archivos o directorios.
 "cat" -> Muestra el contenido de un archivo.
@@ -21,3 +22,59 @@ Comandos basicos:
 "yum" -> Herramienta de gestión de paquetes. (Red Hat)
 "tar" -> Permite comprimir y descomprimir archivos.
 "ssh" -> Permite conectarse a un servidor remoto.
+'echo "Contenido" > archivo' -> Crea un archivo escribe el contenido en él.
+Modificación de permisos de archivos
+"sudo find / -type s" -> Busca archivos desde la raiz de tipe s. 
+-Letras--------------------------------
+chmod u=rwx, g=rx, o=rx archivo.txt
+
+'u' Propietario 'g' Grupo 'o' Otros
+'x' suma permisos '-' Quita permisos
+'r' Leer 'w' Escribir 'Ejecutar'
+
+chmod a-x archivo.txt
+chmod g+rwm, o-rwx archivo.txt
+
+-Numeros------------------------------
+0: Ningún permiso.
+1: Permiso de ejecución.
+2: Permiso de escritura.
+3: Permiso de escritura y ejecución.
+4: Permiso de lectura.
+5: Permiso de lectura y ejecución.
+6: Permiso de lectura y escritura.
+7: Permiso de lectura, escritura y ejecución.
+
+chmod 777 archivo.txt
+El propietario, grupo y otros tienen todos los permisos.
+
+chmod 755 directorio:
+El propietario tiene todos los permisos 
+El grupo y otros solo tienen permisos de lectura y ejecución.
+
+chmod 644 archivo.txt:
+El propietario tiene permisos de lectura y escritura.
+El grupo y otros solo tienen permisos de lectura.
+
+chmod 600 archivo.txt:
+El propietario tiene permisos de lectura y escritura.
+El grupo y otros no tienen ningún permiso.
+
+chmod 755 script.sh:
+El propietario tiene todos los permisos 
+El grupo y otros solo tienen permisos de lectura y ejecución.
+
+chmod 644 imagen.jpg:
+El propietario tiene permisos de lectura y escritura.
+El grupo y otros solo tienen permisos de lectura.
+
+chmod 777 carpeta:
+Todos (propietario, grupo y otros) tienen todos los permisos
+
+chmod 751 script.sh:
+El propietario tiene todos los permisos (lectura, escritura y ejecución).
+El grupo solo tiene permisos de lectura y ejecución.
+Otros no tienen ningún permiso.
+
+Comandos tamaño de un archivo----------------
+du -h archivo.txt
