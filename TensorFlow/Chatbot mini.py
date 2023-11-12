@@ -2,6 +2,7 @@ import speech_recognition as sr
 import webbrowser
 from gtts import gTTS
 import os
+import time
 
 # Configura el reconocimiento de voz
 r = sr.Recognizer()
@@ -13,7 +14,9 @@ def speak(text):
 
 def recognize_speech():
     with sr.Microphone() as source:
-        print("Di algo...")
+        # Ajusta el umbral de energía para el ruido ambiental
+        r.adjust_for_ambient_noise(source)
+        print("<--Di algo-->")
         audio = r.listen(source)
 
     try:
@@ -44,14 +47,16 @@ def process_command(command):
             speak("Abriendo el editor de texto")
         # Agrega más condiciones aquí para abrir otras aplicaciones
 
+
 # Configura cómo quieres que el asistente se refiera a ti
 tu_nombre = "care chimba"
 
 while True:
-    command = recognize_speech()
+    texto_reconocido = recognize_speech()
     
-    if command:
-        if tu_nombre in command:
-            command = command.replace(tu_nombre, "")
+    if texto_reconocido:
+        if tu_nombre in texto_reconocido:
+            texto_reconocido = texto_reconocido.replace(tu_nombre, "")
             speak("Sí, " + tu_nombre)
-        process_command(command)
+        process_command(texto_reconocido)
+    
