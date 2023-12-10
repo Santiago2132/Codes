@@ -68,7 +68,7 @@ def process_command(command):
             webbrowser.open("https://www.example.com")
             speak("Abriendo el editor de texto")
         # Agrega más condiciones aquí para abrir otras aplicaciones
-
+'''
 # Configura cómo quieres que el asistente se refiera a ti
 tu_nombre = "Santiago"
 
@@ -77,13 +77,15 @@ comando_activacion = "activar asistente"
 
 # El asistente te saluda al inicio
 speak("Hola " + tu_nombre + ", estoy listo para ayudarte. Dime " + comando_activacion + " para empezar.")
+'''
+tu_nombre = "Santiago"
 
 while True:
-    
+
     texto_reconocido = recognize_speech()
-    
+
     if texto_reconocido:
-        if comando_activacion in texto_reconocido:
-            speak("Sí, " + tu_nombre + ". ¿Cómo puedo ayudarte?")
-            texto_reconocido = texto_reconocido.replace(comando_activacion, "")
-            process_command(texto_reconocido)
+        if tu_nombre in texto_reconocido:
+            texto_reconocido = texto_reconocido.replace(tu_nombre, "")
+            speak("Sí, " + tu_nombre)
+        process_command(texto_reconocido)
