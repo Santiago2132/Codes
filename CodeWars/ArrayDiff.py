@@ -22,3 +22,21 @@ def array_diff(a, b):#Now time complexity reduced to O(n) for large inputs.
 
 print(array_diff([1,2],[1])) # Output: [2]
 print(array_diff([1,2,2,3,5,6,7,2,3],[2])) # Output: [1, 3, 5, 6, 7, 3]
+
+#Others solutions
+def array_diff(a, b):
+    #your code here
+    return filter(lambda i: i not in b, a)
+
+def array_diff(a, b):
+    #your code here
+    for i in range(len(b)):
+        while b[i] in a:
+            a.remove(b[i])
+    return a
+
+def array_diff(a, b):
+    for n in b:
+        while(n in a):
+            a.remove(n)
+    return a
