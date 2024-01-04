@@ -10,7 +10,7 @@ Examples:
 
 """
 def gninnipS_my_sdroW(sentence):
-    words = sentence.split()
-    reversed_words = [word[::-1] if len(word) >= 5 else word for word in words]
-    return ' '.join(reversed_words)
+    words = sentence.split()#Divide la cadena en una lista de palabras
+    reversed_words = [word[::-1] if len(word) >= 5 else word for word in words]#Invierte el orden de las palabras con 5 o más letras y mantiene las otras sin cambios
+    return ' '.join(reversed_words)#Une las palabras usando espacios
 print(gninnipS_my_sdroW("Hey fellow warriors"))
